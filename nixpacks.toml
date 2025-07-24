@@ -1,0 +1,13 @@
+# Build configuration for Railway
+[build]
+  builder = "nixpacks"
+
+[start]
+  cmd = "python simple_backend.py"
+
+[healthcheck]
+  path = "/api/health"
+  timeout = 300
+
+[env]
+  PORT = "8000"

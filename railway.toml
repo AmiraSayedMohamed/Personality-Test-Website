@@ -1,0 +1,15 @@
+# Railway Deployment Configuration
+
+[build]
+builder = "nixpacks"
+
+[deploy]
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "on-failure"
+
+[environments.production]
+PORT = 8000
+MONGO_URL = "${{MONGO_URL}}"
+GEMINI_API_KEY = "${{GEMINI_API_KEY}}"
+DB_NAME = "personality_test_db"
