@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 import uuid
@@ -17,6 +19,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="public"), name="static")
+
+# Root route - serve index.html
+@app.get("/")
+async def read_root():
+    return FileResponse("public/index.html")
+
+# Admin route
+@app.get("/admin.html")
+async def admin_page():
+    return FileResponse("public/admin.html")
 
 # In-memory storage for testing
 sessions = {}
